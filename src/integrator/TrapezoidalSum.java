@@ -15,6 +15,7 @@ public class TrapezoidalSum extends GenericIntegrator {
     }
     
     public double specificSum(double x, Function function, double deltaX) {
-        return (function.evaluate(x) + function.evaluate(x + deltaX)) * deltaX;
+    	// This has a surprizingly high loss of precision...
+        return (function.evaluate(x) + function.evaluate(x + deltaX)) * deltaX / 2;
     }
 }
