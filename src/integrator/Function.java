@@ -4,7 +4,7 @@ public interface Function {
 	/***
 	 * Wrapper for a function of x. Essentially just a f(x) interface.
 	 * @param Takes a double.
-	 * @return Returns f(x), where f is your function.
+	 * @return Returns the value of f(x).
 	 */
-	double function(double x);
+	double value(double x);
 }
