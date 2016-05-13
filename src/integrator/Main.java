@@ -6,6 +6,9 @@ public class Main
 {
 	public static void main(String[] args)
 	{
+		GUI test = new GUI();
+        test.setVisible(true);
+		/*
 		Scanner input = new Scanner(System.in);
 		
 		String fxn;
@@ -23,5 +26,6 @@ public class Main
 		
 		Function f = new Function(fxn);
 		System.out.println(f.simpsonsRule(a, b, n));
+		*/
 	}	
 }
