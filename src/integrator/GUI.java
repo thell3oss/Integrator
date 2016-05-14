@@ -2,57 +2,71 @@ package integrator;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.ParallelGroup;
+import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 public class GUI extends JFrame{
 	public GUI() {
 		 setTitle("Integrator");
-		 setSize(300, 200);
+		 setSize(600, 500);
 		 setLocationRelativeTo(null);
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		 //Set up container + groups
+		 Container pane = getContentPane();
+
+		 GroupLayout layout = new GroupLayout(pane);
+		 pane.setLayout(layout);        	        
+
+		 SequentialGroup hGroup = layout.createSequentialGroup();        
+		 ParallelGroup vGroup = layout.createParallelGroup();
 		 
 		 // Create labels which ask for the function and interval to use.
-		 String fxn;
-		 double a, b;
-		 int n;
+		 JPanel function_label = NewLabel("What function?");
+		 JPanel interval_label = NewLabel("What interval?");
+		 JPanel subinterval_label = NewLabel("How many subintervals?");
 		 
-	    JLabel label = NewLabel("What function?");
-	    createLayout(label);
-
-	     
+		 hGroup
+		 	.addComponent(function_label)
+		 	.addComponent(interval_label)
+		 	.addComponent(subinterval_label);
+		 vGroup
+		 	.addComponent(function_label)
+		 	.addComponent(interval_label)
+		 	.addComponent(subinterval_label);
+		 
+		 // Finally, set the layout to have the groups we have.
+		 layout.setHorizontalGroup(hGroup);
+		 layout.setVerticalGroup(vGroup);
 	}
 	
-	private JLabel NewLabel(String labelName) {
+	private JPanel NewLabel(String labelName) {
+	     JPanel panel = new JPanel(); 
+		
+	     JTextField textPane = new JTextField();
+	     textPane.setPreferredSize(new Dimension(70, 20));
+	     
+	     
 	     JLabel label = new JLabel(labelName);
+	     
+	     label.setLabelFor(textPane);
 	     Font serif = new Font("Serif", Font.PLAIN, 14);
 	     label.setFont(serif);
 	     label.setForeground(new Color(50, 50, 25));
-	     return label;
-	}
-	
-    private void createLayout(JComponent... arg) {
-        // I don't actually know what this does.
-    	// I'm assuming it's formatting but I copy+pasted it from
-    	// a tutorial because I don't know how to use Java Swing yet.
-        Container pane = getContentPane();
-        GroupLayout gl = new GroupLayout(pane);
-        pane.setLayout(gl);        
-
-        gl.setAutoCreateContainerGaps(true);
-
-        gl.setHorizontalGroup(gl.createSequentialGroup()
-                .addComponent(arg[0])
-        );
-
-        gl.setVerticalGroup(gl.createParallelGroup()
-                .addComponent(arg[0])
-        );
-
-        
-    }   
+	     
+	     panel.add(textPane);
+	     panel.add(label);
+	     
+	     return panel;
+	}   
 }
