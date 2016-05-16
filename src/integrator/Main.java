@@ -1,27 +1,26 @@
-package integrator;
+import java.util.Scanner;
 
-public class Main {
-
-	public static void main(String[] args) {
-		Function cubic = (x) -> {
-			return x*x*x;
-		};
+public class Main
+{
+	public static void main(String[] args)
+	{
+		/*Scanner input = new Scanner(System.in);
 		
-		DeltaSum leftHand = (x, function, deltaX) -> {
-			return function.value(x) * deltaX;
-		};
+		String fxn;
+		double a, b;
+		int n;
 		
-		LeftHandRiemannSum integrator = new LeftHandRiemannSum();
-		GenericIntegrator integrator2 = new GenericIntegrator();		
+		System.out.println("Enter f(x)");
+		fxn = input.nextLine();
+		System.out.println("Enter a");
+		a = input.nextDouble();
+		System.out.println("Enter b");
+		b = input.nextDouble();
+		System.out.println("Enter n");
+		n = input.nextInt();
 		
-		
-		// Example of integration with a different number of intervals..
-		for (int i = 1; i < 1000; i += 1) {
-			double result = integrator.Integrate(-3, 2, i, cubic);
-			double result2 = integrator2.Integrate(-3, 2, i, cubic, leftHand);
-			System.out.println("number of intervals: " + i + " | value: " + (result - result2));
-		}
-		// The integral of x^3 from -3 to 2 is exactly -16.25
-		
+		Function f = new Function(fxn);
+		System.out.println(f.simpsonsRule(a, b, n));*/
+		new GUI();
 	}
 }
