@@ -1,5 +1,3 @@
-package integrator;
-
 import org.nfunk.jep.JEP;
 /**
  * Write a description of class Function here.

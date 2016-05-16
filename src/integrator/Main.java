@@ -1,15 +1,10 @@
-package integrator;
-
 import java.util.Scanner;
 
 public class Main
 {
 	public static void main(String[] args)
 	{
-		GUI test = new GUI();
-        test.setVisible(true);
-		/*
-		Scanner input = new Scanner(System.in);
+		/*Scanner input = new Scanner(System.in);
 		
 		String fxn;
 		double a, b;
@@ -25,7 +20,7 @@ public class Main
 		n = input.nextInt();
 		
 		Function f = new Function(fxn);
-		System.out.println(f.simpsonsRule(a, b, n));
-		*/
-	}	
+		System.out.println(f.simpsonsRule(a, b, n));*/
+		new GUI();
+	}
 }

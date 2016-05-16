@@ -1,93 +1,107 @@
-package integrator;
+import BreezySwing.*;
+import javax.swing.*;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Group;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-
-public class GUI extends JFrame{
-	public GUI() {
-		setTitle("Integrator");
-		setSize(600, 500);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		Container container = getContentPane();
-
+public class GUI extends GBFrame
+{
+    private JTextField fxnInput = addTextField("", 1, 2, 1, 1);
+    private DoubleField lowerLimitInput = addDoubleField(0, 2, 2, 1, 1);
+    private DoubleField upperLimitInput = addDoubleField(0, 3, 2, 1, 1);
+    private IntegerField initNumberOfIntervals = addIntegerField(0, 4, 2, 1, 1);
+    private IntegerField finalNumberOfIntervals = addIntegerField(0, 5, 2, 1, 1);
+    
+    private ButtonGroup approximationSelector = new ButtonGroup();
+    private JRadioButton lrs = addRadioButton("Left Riemann Sum", 1, 3, 1, 1);
+    private JRadioButton mrs = addRadioButton("Middle Riemann Sum", 2, 3, 1, 1);
+    private JRadioButton rrs = addRadioButton("Right Riemann Sum", 3, 3, 1, 1);
+    private JRadioButton tRule = addRadioButton("Trapezoidal Rule", 4, 3, 1, 1);
+    private JRadioButton sRule = addRadioButton("Simpson's Rule", 5, 3, 1, 1);
+    
+    private JButton calculate = addButton("CALCULATE", 6, 1, 1, 1);
+    
+    private JList table = addList(7, 1, 1, 1);
+    
+    
+    public GUI()
+    {
+        setTitle("Integrator");
+        
+        addLabel("Enter the function to be integrated: ", 1, 1, 1, 1);
+        addLabel("lower limit: ", 2, 1, 1, 1);
+        addLabel("upper limit: ", 3, 1, 1, 1);
+        addLabel("initial amount of intervals: ", 4, 1, 1, 1);
+        addLabel("final amount of intervals: ", 5, 1, 1, 1);
+        
+        approximationSelector.add(lrs);
+        approximationSelector.add(mrs);
+        approximationSelector.add(rrs);
+        approximationSelector.add(tRule);
+        approximationSelector.add(sRule);
+        
+        setSize(600, 600);
+        setVisible(true);
+    }
+    
+    private void respond()
+    {
+        Function fx = new Function(fxnInput.getText());
+        int n1 = initNumberOfIntervals.getNumber(), n2 = finalNumberOfIntervals.getNumber();
+        int tableLength = n2 - n1 + 1; //+ 1 needed to include space for values from n1 to n2 INCLUSIVE
+        double[] values = new double[tableLength];
+        
+        double a = lowerLimitInput.getNumber(), b = upperLimitInput.getNumber();
+          
+        if (lrs.isSelected())
+        {
+            for (int i = n1; i <= n2; i ++)
+            {
+                values[i - n1] = fx.LRS(a, b, i);
+            }
+        }
+        else if (mrs.isSelected())
+        {
+            for (int i = n1; i <= n2; i ++)
+            {
+                values[i - n1] = fx.MRS(a, b, i);
+            }
+        }
+        else if (rrs.isSelected())
+        {
+            for (int i = n1; i <= n2; i ++)
+            {
+                values[i - n1] = fx.RRS(a, b, i);
+            }
+        }
+        else if (tRule.isSelected())
+        {
+            for (int i = n1; i <= n2; i ++)
+            {
+                values[i - n1] = fx.trapezoidalSum(a, b, i);
+            }
+        }
+        else if (sRule.isSelected())
+        {
+            for (int i = n1; i <= n2; i ++)
+            {
+                values[i - n1] = fx.simpsonsRule(a, b, i);
+            }
+        }
+        
+        DefaultListModel<String> tableContents = new DefaultListModel<String>();
+        for (int i = n1; i <= n2; i ++)
+		{
+			tableContents.addElement(i + "\t\t|" + values[i - n1]);
+		}
+		table.setModel(tableContents);
 		
-		// FIELDS AND FIELD LABELS
-		//Set up container + groups
-		JPanel field_panel = new JPanel();
-		GroupLayout field_layout = new GroupLayout(field_panel);
-		field_panel.setLayout(field_layout);        	        
-
-		SequentialGroup hGroup = field_layout.createSequentialGroup();        
-		ParallelGroup vGroup = field_layout.createParallelGroup();
-		
-		// Create text areas which ask for the function and interval to use.
-		JLabel function_label = new JLabel("What function?");
-		JTextField function_field = new JTextField(16);
-		
-		JLabel interval_label = new JLabel("What interval? (Format is [a,b])");
-		JTextField interval_field = new JTextField(4);
-		
-		JLabel subinterval_label = new JLabel("How many subintervals?");
-		JTextField subinterval_field = new JTextField(4);
-		
-		// Add the text areas
-		hGroup.addGroup(field_layout.createSequentialGroup()
-				.addGroup(field_layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(function_label)
-						.addComponent(interval_label)
-						.addComponent(subinterval_label))
-				.addGroup(field_layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(function_field, 12, 150, 200)
-						.addComponent(interval_field, 12, 60, 80)
-						.addComponent(subinterval_field, 12, 20, 30))
-				);
-		
-		vGroup.addGroup(field_layout.createSequentialGroup()
-				.addGroup(field_layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(function_label)
-						.addComponent(function_field))
-				.addGroup(field_layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(interval_label)
-						.addComponent(interval_field))
-				.addGroup(field_layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addComponent(subinterval_label)
-						.addComponent(subinterval_field))
-				);
-		field_layout.setHorizontalGroup(hGroup);
-		field_layout.setVerticalGroup(vGroup);
-		
-		// BUTTON AND GRAPH
-		JPanel button_panel = new JPanel();
-		button_panel.setLayout(new FlowLayout());
-		
-		JButton calculate_button = new JButton("Calculate");
-		button_panel.add(calculate_button);
-		
-		//Add all the panels
-		JPanel window_pane = new JPanel();
-		window_pane.setLayout(new FlowLayout());
-		window_pane.add(field_panel);
-		window_pane.add(button_panel);
-		container.add(window_pane);
-
+		revalidate();
+		repaint();
+    }
+    
+    public void buttonClicked(JButton b)
+	{
+		if (b == calculate)
+		{
+			respond();
+		}
 	}
 }
