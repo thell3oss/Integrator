@@ -70,10 +70,8 @@ public class Function
     	{
     		double xStar = x;
     		double left = this.evaluate(xStar);
-    		xStar += deltaX;
-    		double mid = this.evaluate(xStar);
-    		xStar += deltaX;
-    		double right = this.evaluate(xStar);
+    		double mid = this.evaluate(xStar + deltaX);
+    		double right = this.evaluate(xStar + 2 * deltaX);
     		total += left + (4 * mid) + right;
     	}
     	
