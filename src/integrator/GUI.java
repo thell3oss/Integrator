@@ -27,6 +27,8 @@ public class GUI extends GBFrame
     private JRadioButton rrs = addRadioButton("Right Riemann Sum", 3, 3, 1, 1);
     private JRadioButton tRule = addRadioButton("Trapezoidal Rule", 4, 3, 1, 1);
     private JRadioButton sRule = addRadioButton("Simpson's Rule", 5, 3, 1, 1);
+    private JRadioButton sThreeEightRule = addRadioButton("Simpson's 3/8 Rule", 6, 3, 1, 1);
+    private JRadioButton boolesRule = addRadioButton("Boole's Rule", 7, 3, 1, 1);
     
     private JButton calculate = addButton("CALCULATE", 6, 1, 1, 1);
     
@@ -48,6 +50,7 @@ public class GUI extends GBFrame
         approximationSelector.add(rrs);
         approximationSelector.add(tRule);
         approximationSelector.add(sRule);
+        approximationSelector.add(sThreeEightRule);
         
         setSize(600, 600);
         setVisible(true);
@@ -135,6 +138,35 @@ public class GUI extends GBFrame
                 tableContents.addElement(i + "\t\t|" + fx.simpsonsRule(a, b, i));
             }
         }
+        
+        else if (sThreeEightRule.isSelected())
+        {
+            if (n1 % 3 != 0 || n2 % 3 != 0)
+            {
+               showMessage("The number of intervals must be a multiple of three.");
+               return;
+            }
+
+            for (int i = n1; i <= n2; i += 3)
+            {
+                tableContents.addElement(i + "\t\t|" + fx.simpsonsThreeEightsRule(a, b, i));
+            }
+        }
+        
+        else if (boolesRule.isSelected())
+        {
+            if (n1 % 4 != 0 || n2 % 4 != 0)
+            {
+               showMessage("The number of intervals must be a multiple of four.");
+               return;
+            }
+
+            for (int i = n1; i <= n2; i += 4)
+            {
+                tableContents.addElement(i + "\t\t|" + fx.boolesRule(a, b, i));
+            }
+        }
+        
         else
         {
             showMessage("You must select an approximation method.");

@@ -78,7 +78,7 @@ public class Function
         double deltaX = (end - start) / numberOfIntervals;
         double total = 0;
         double x = start;
-        for (int i = 0; i < numberOfIntervals; i += 2) //x is incremented by 2 because the right endpoint of the middlemost parabolas is the left endoint of other middle parabolas
+        for (int i = 0; i < numberOfIntervals; i += 2)
         {
             double left = this.evaluate(x);
             double mid = this.evaluate(x + deltaX);
@@ -89,4 +89,52 @@ public class Function
         
         return total * (deltaX / 3);
     }
+   
+   public double simpsonsThreeEightsRule(double start, double end, int numberOfIntervals)
+   {
+       if (numberOfIntervals % 3 != 0)
+       {
+           throw new IllegalArgumentException("The number of intervals must be a multiple of three");
+       }
+       
+       double deltaX = (end - start) / numberOfIntervals;
+       double total = 0;
+       double x = start;
+       for (int i = 0; i < numberOfIntervals; i += 3)
+       {
+    	   // Yes, I know these are bad names.
+           double x1 = this.evaluate(x);
+           double x2 = this.evaluate(x + deltaX);
+           double x3 = this.evaluate(x + 2 * deltaX);
+           double x4 = this.evaluate(x + 3 * deltaX);
+           total += x1 + (3 * x2) + (3 * x3) + x4;
+           x += 3 * deltaX;
+       }
+       
+       return total * (deltaX * 3 / 8);
+   }
+   
+   public double boolesRule(double start, double end, int numberOfIntervals)
+   {
+       if (numberOfIntervals % 4 != 0)
+       {
+           throw new IllegalArgumentException("The number of intervals must be a multiple of four");
+       }
+       
+       double deltaX = (end - start) / numberOfIntervals;
+       double total = 0;
+       double x = start;
+       for (int i = 0; i < numberOfIntervals; i += 4)
+       {
+           double x1 = this.evaluate(x);
+           double x2 = this.evaluate(x + deltaX);
+           double x3 = this.evaluate(x + 2 * deltaX);
+           double x4 = this.evaluate(x + 3 * deltaX);
+           double x5 = this.evaluate(x + 4 * deltaX);
+           total += (7 * x1) + (32 * x2) + (12 * x3) + (32 * x4) + (7 * x5);
+           x += 4 * deltaX;
+       }
+       
+       return total * (deltaX * 2 / 45);
+   }
 }
