@@ -67,9 +67,19 @@ public class GUI extends GBFrame
             showMessage("The initial amount of subintervals cannot be negative.");
             return;
         }
+        if (n1 == 0)
+        {
+            showMessage("The initial amount of subintervals cannot be 0.");
+            return;
+        }
         if (n2 < 0)
         {
             showMessage("The final amount of subintervals cannot be negative.");
+            return;
+        }
+        if (n2 == 0)
+        {
+            showMessage("The initial amount of subintervals cannot be 0.");
             return;
         }
         

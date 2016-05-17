@@ -31,7 +31,8 @@ public class Function
     {
         double deltaX = (end - start) / numberOfIntervals;
         double total = 0;
-        for (double x = start; x < end; x += deltaX) {
+        for (double x = start; x < end; x += deltaX)
+        {
             total += this.evaluate(x) * deltaX;
         }
         return total;
