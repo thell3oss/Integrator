@@ -33,9 +33,11 @@ public class Function
     {
         double deltaX = (end - start) / numberOfIntervals;
         double total = 0;
-        for (double x = start; Math.abs(x - end) > EPSILON; x += deltaX) //|x - end| > EPSILON is essentially equivalent to x < end
+        double x = start;
+        for (int i = 0; i < numberOfIntervals; i++)
         {
         	total += this.evaluate(x) * deltaX;
+        	x += deltaX;
             //System.out.println("x: " + x + "\t" + "total: " + total);
         }
         return total;
@@ -57,11 +59,13 @@ public class Function
     {
         double deltaX = (end - start) / numberOfIntervals;
         double total = 0;
-        for (double x = start; Math.abs(x - end) > EPSILON; x += deltaX)
+        double x = start;
+        for (int i = 0; i < numberOfIntervals; i++)
         {
-            total += (this.evaluate(x) + this.evaluate(x + deltaX)) * (deltaX / 2);
+            total += (this.evaluate(x) + this.evaluate(x + deltaX));
+            x += deltaX;
         }
-        return total;
+        return total * (deltaX / 2);
     }
     
    public double simpsonsRule(double start, double end, int numberOfIntervals)
@@ -73,14 +77,14 @@ public class Function
         
         double deltaX = (end - start) / numberOfIntervals;
         double total = 0;
-        
-        for (double x = start; Math.abs(x - end) > EPSILON; x += 2 * deltaX) //x is incremented by 2 because the right endpoint of the middlemost parabolas is the left endoint of other middle parabolas
+        double x = start;
+        for (int i = 0; i < numberOfIntervals; i += 2) //x is incremented by 2 because the right endpoint of the middlemost parabolas is the left endoint of other middle parabolas
         {
-            double xStar = x;
-            double left = this.evaluate(xStar);
-            double mid = this.evaluate(xStar + deltaX);
-            double right = this.evaluate(xStar + 2 * deltaX);
+            double left = this.evaluate(x);
+            double mid = this.evaluate(x + deltaX);
+            double right = this.evaluate(x + 2 * deltaX);
             total += left + (4 * mid) + right;
+            x += 2 * deltaX;
         }
         
         return total * (deltaX / 3);
