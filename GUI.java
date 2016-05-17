@@ -57,6 +57,32 @@ public class GUI extends GBFrame
         int n1 = initNumberOfIntervals.getNumber(), n2 = finalNumberOfIntervals.getNumber();
         double a = new Function(lowerLimitInput.getText()).evaluate(1), b = new Function(upperLimitInput.getText()).evaluate(1);
         
+        if (fx.equals(""))
+        {
+            showMessage("You must enter a function.");
+        }
+        
+        if (n1 < 0)
+        {
+            showMessage("The initial amount of subintervals cannot be negative.");
+            return;
+        }
+        if (n1 == 0)
+        {
+            showMessage("The initial amount of subintervals cannot be 0.");
+            return;
+        }
+        if (n2 < 0)
+        {
+            showMessage("The final amount of subintervals cannot be negative.");
+            return;
+        }
+        if (n2 == 0)
+        {
+            showMessage("The initial amount of subintervals cannot be 0.");
+            return;
+        }
+        
         DefaultListModel<String> tableContents = new DefaultListModel<String>();
         if (lrs.isSelected())
         {
@@ -69,38 +95,57 @@ public class GUI extends GBFrame
         {
             for (int i = n1; i <= n2; i ++)
             {
-                tableContents.addElement(i + "\t\t|" + fx.LRS(a, b, i));
+                tableContents.addElement(i + "\t\t|" + fx.MRS(a, b, i));
             }
         }
         else if (rrs.isSelected())
         {
             for (int i = n1; i <= n2; i ++)
             {
-                tableContents.addElement(i + "\t\t|" + fx.LRS(a, b, i));
+                tableContents.addElement(i + "\t\t|" + fx.RRS(a, b, i));
             }
         }
         else if (tRule.isSelected())
         {
             for (int i = n1; i <= n2; i ++)
             {
-                tableContents.addElement(i + "\t\t|" + fx.LRS(a, b, i));
+                tableContents.addElement(i + "\t\t|" + fx.trapezoidalSum(a, b, i));
             }
         }
         else if (sRule.isSelected())
         {
+            if (n1 % 2 == 1)
+            {
+               showMessage("The inital amount of subintervals cannot be odd when using Simpson's Rule!");
+               return;
+            }
+            if (n2 % 2 == 1)
+            {
+               showMessage("The final amount of subintervals cannot be odd when using Simpson's Rule!");
+               return;
+            }
             for (int i = n1; i <= n2; i ++)
             {
-                tableContents.addElement(i + "\t\t|" + fx.LRS(a, b, i));
+                if (i % 2 == 1)
+                {
+                    continue;
+                }
+                tableContents.addElement(i + "\t\t|" + fx.simpsonsRule(a, b, i));
             }
         }
         else
         {
-            new JOptionPane().showMessageDialog(this, "You must select an approximation method.");
+            showMessage("You must select an approximation method.");
         }
         table.setModel(tableContents);  
         
         revalidate();
         repaint();
+    }
+    
+    private void showMessage(String text)
+    {
+    	JOptionPane.showMessageDialog(this, text);
     }
     
     public void buttonClicked(JButton b)
