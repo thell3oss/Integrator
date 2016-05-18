@@ -40,10 +40,10 @@ public class GUI extends GBFrame
         setTitle("Integrator");
         
         addLabel("Enter the function to be integrated: ", 1, 1, 1, 1);
-        addLabel("lower limit: ", 2, 1, 1, 1);
-        addLabel("upper limit: ", 3, 1, 1, 1);
-        addLabel("initial amount of intervals: ", 4, 1, 1, 1);
-        addLabel("final amount of intervals: ", 5, 1, 1, 1);
+        addLabel("Lower limit: ", 2, 1, 1, 1);
+        addLabel("Upper limit: ", 3, 1, 1, 1);
+        addLabel("Initial amount of intervals: ", 4, 1, 1, 1);
+        addLabel("Final amount of intervals: ", 5, 1, 1, 1);
         
         approximationSelector.add(lrs);
         approximationSelector.add(mrs);
@@ -51,6 +51,7 @@ public class GUI extends GBFrame
         approximationSelector.add(tRule);
         approximationSelector.add(sRule);
         approximationSelector.add(sThreeEightRule);
+        approximationSelector.add(boolesRule);
         
         setSize(600, 600);
         setVisible(true);
@@ -59,32 +60,25 @@ public class GUI extends GBFrame
     private void respond()
     {
         Function fx = new Function(fxnInput.getText());
-        int n1 = initNumberOfIntervals.getNumber(), n2 = finalNumberOfIntervals.getNumber();
-        double a = new Function(lowerLimitInput.getText()).evaluate(1), b = new Function(upperLimitInput.getText()).evaluate(1);
-        
+        int n1 = initNumberOfIntervals.getNumber();
+        int n2 = finalNumberOfIntervals.getNumber();
+        double a = new Function(lowerLimitInput.getText()).evaluate(1);
+        double b = new Function(upperLimitInput.getText()).evaluate(1);
+        // Sanity Checks
         if (fx.equals(""))
         {
             showMessage("You must enter a function.");
+            return;
         }
         
-        if (n1 < 0)
+        if (n2 < n1)
         {
-            showMessage("The initial amount of subintervals cannot be negative.");
-            return;
+        	showMessage("Final amount of subintervals must be less than the initial number of subintervals.");
         }
-        if (n1 == 0)
+        
+        if (n1 <= 0 || n2 <= 0)
         {
-            showMessage("The initial amount of subintervals cannot be 0.");
-            return;
-        }
-        if (n2 < 0)
-        {
-            showMessage("The final amount of subintervals cannot be negative.");
-            return;
-        }
-        if (n2 == 0)
-        {
-            showMessage("The initial amount of subintervals cannot be 0.");
+            showMessage("The initial and final amount of subintervals must be positive.");
             return;
         }
         
@@ -119,14 +113,9 @@ public class GUI extends GBFrame
         }
         else if (sRule.isSelected())
         {
-            if (n1 % 2 == 1)
+            if (n1 % 2 == 1 || n2 % 2 == 1)
             {
-               showMessage("The inital amount of subintervals cannot be odd when using Simpson's Rule!");
-               return;
-            }
-            if (n2 % 2 == 1)
-            {
-               showMessage("The final amount of subintervals cannot be odd when using Simpson's Rule!");
+               showMessage("The number of intervals must be a multiple of two.");
                return;
             }
             for (int i = n1; i <= n2; i ++)
@@ -138,7 +127,6 @@ public class GUI extends GBFrame
                 tableContents.addElement(i + "\t\t|" + fx.simpsonsRule(a, b, i));
             }
         }
-        
         else if (sThreeEightRule.isSelected())
         {
             if (n1 % 3 != 0 || n2 % 3 != 0)
