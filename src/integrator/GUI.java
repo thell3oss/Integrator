@@ -15,25 +15,24 @@ import BreezySwing.IntegerField;
 
 public class GUI extends GBFrame
 {
-    private JTextField fxnInput = addTextField("", 1, 2, 1, 1);
+    private JTextField fxnInput = addTextField("", 1, 2, 2, 1);
     private JTextField lowerLimitInput = addTextField("", 2, 2, 1, 1);
     private JTextField upperLimitInput = addTextField("", 3, 2, 1, 1);
     private IntegerField initNumberOfIntervals = addIntegerField(1, 4, 2, 1, 1);
     private IntegerField finalNumberOfIntervals = addIntegerField(2, 5, 2, 1, 1);
     
     private ButtonGroup approximationSelector = new ButtonGroup();
-    private JRadioButton lrs = addRadioButton("Left Riemann Sum", 1, 3, 1, 1);
-    private JRadioButton mrs = addRadioButton("Middle Riemann Sum", 2, 3, 1, 1);
-    private JRadioButton rrs = addRadioButton("Right Riemann Sum", 3, 3, 1, 1);
-    private JRadioButton tRule = addRadioButton("Trapezoidal Rule", 4, 3, 1, 1);
-    private JRadioButton sRule = addRadioButton("Simpson's Rule", 5, 3, 1, 1);
-    private JRadioButton sThreeEightRule = addRadioButton("Simpson's 3/8 Rule", 6, 3, 1, 1);
-    private JRadioButton boolesRule = addRadioButton("Boole's Rule", 7, 3, 1, 1);
+    private JRadioButton lrs = addRadioButton("Left Riemann Sum", 2, 3, 1, 1);
+    private JRadioButton mrs = addRadioButton("Middle Riemann Sum", 3, 3, 1, 1);
+    private JRadioButton rrs = addRadioButton("Right Riemann Sum", 4, 3, 1, 1);
+    private JRadioButton tRule = addRadioButton("Trapezoidal Rule", 5, 3, 1, 1);
+    private JRadioButton sRule = addRadioButton("Simpson's Rule", 6, 3, 1, 1);
+    private JRadioButton sThreeEightRule = addRadioButton("Simpson's 3/8 Rule", 7, 3, 1, 1);
+    private JRadioButton boolesRule = addRadioButton("Boole's Rule", 8, 3, 1, 1);
     
-    private JButton calculate = addButton("CALCULATE", 6, 1, 1, 1);
+    private JButton calculate = addButton("CALCULATE", 9, 1, 1, 1);
     
-    private JLabel loadingIndicator = addLabel("", 7, 1, 1, 1);
-    private JList table = addList(8, 1, 1, 1);
+    private JList table = addList(10, 1, 1, 1);
     
     public GUI()
     {
@@ -74,6 +73,7 @@ public class GUI extends GBFrame
         if (n2 < n1)
         {
         	showMessage("Final amount of subintervals must be less than the initial number of subintervals.");
+        	return;
         }
         
         if (n1 <= 0 || n2 <= 0)
@@ -158,6 +158,7 @@ public class GUI extends GBFrame
         else
         {
             showMessage("You must select an approximation method.");
+            return;
         }
         table.setModel(tableContents);  
         

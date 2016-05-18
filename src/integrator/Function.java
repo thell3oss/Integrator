@@ -1,4 +1,5 @@
 package integrator;
+ 
 import org.nfunk.jep.JEP;
 /**
  * Write a description of class Function here.
@@ -8,7 +9,6 @@ import org.nfunk.jep.JEP;
  */
 public class Function
 {
-	private static final double EPSILON = .0000000001;
     private String function;
     private JEP parser;
     
