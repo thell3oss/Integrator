@@ -4,7 +4,7 @@
 
 ## The `Function' class
 
-The class `Function` represents a mathematical function such as $f(x) = x^2$. For example, that particular function would be instantiated as `f = new Function("x^2")'. Once a `Function' object has been created, one can call its `double evaluate(double x)` method to evaluate it at the input `x`. More interestingly, one can call the following methods on any function instance:
+The class `Function` represents a mathematical function such as $f(x) = x^2$. For example, $f(x) = x^2$ would be represented by instantiating `f = new Function("x^2")`. Once a `Function' object has been created, one can call its `double evaluate(double x)` method to evaluate it at the input `x`. More interestingly, one can call the following methods on any function instance:
 
 - `double LRS(double start, double end, int numberOfIntervals)` returns the result of performing a left Riemann sum
 - `double MRS(double start, double end, int numberOfIntervals)` returns the result of performing a middle Riemann sum
