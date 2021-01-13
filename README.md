@@ -1,0 +1,26 @@
+# Integrator
+
+This performs [Riemann sums](https://en.wikipedia.org/wiki/Riemann_sum) and other numerical integration techniques, and was written by Aaron Kofsky and I in our calculus class in 2016 during my junior year of high school.
+
+## The `Function' class
+
+The class `Function' represents a mathematical function such as $f(x) = x^2$. For example, that particular function would be instantiated as `f = new Function("x^2")'. Once a `Function' object has been created, one can call its `double evaluate(double x)` method to evaluate it at the input `x`. More interestingly, one can call the following methods on any function instance:
+
+- `double LRS(double start, double end, int numberOfIntervals)` returns the result of performing a left Riemann sum
+- `double MRS(double start, double end, int numberOfIntervals)` returns the result of performing a middle Riemann sum
+- `double RRS(double start, double end, int numberOfIntervals)` returns the result of performing a right Riemann sum
+
+`Function` also allows for different (non-Riemann sum) numerical integration techniques:
+
+- `double trapezoidalSum(double start, double end, int numberOfIntervals)` returns the result of using the [trapezoidal rule](https://en.wikipedia.org/wiki/Trapezoidal_rule)
+- `double simpsonsRule(double start, double end, int numberOfIntervals)` returns the result of using [Simpson's rule](https://en.wikipedia.org/wiki/Simpson%27s_rule)
+- `double simpsonsThreeEightsRule(double start, double end, int numberOfIntervals)` returns the result of using [Simpson's (3/8)ths rule](https://en.wikipedia.org/wiki/Simpson%27s_rule)
+- `double boolesRule(double start, double end, int numberOfIntervals)` returns the result of using [Boole's rule](https://en.wikipedia.org/wiki/Boole%27s_rule)
+
+## The `GUI` class
+
+The `GUI` class is a wrapper around `BreezySwing.GBFrame` that is customized for accepting user input regarding functions.
+
+## The driver program
+
+When a user runs `Integrator.jar`, they are presented with a GUI that allows them to enter in a mathematical function and then click a button to perform a numerical integration technique of their choice.
