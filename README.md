@@ -23,4 +23,4 @@ The `GUI` class is a wrapper around `BreezySwing.GBFrame` that is customized for
 
 ## The driver program
 
-When a user runs `Integrator.jar`, they are presented with a GUI that allows them to enter in a mathematical function and then click a button to perform a numerical integration technique of their choice.
+When a user runs `Integrator.jar`, they are presented with a GUI that allows them to enter in a mathematical function and then radio buttons to select a numerical integration technique of their choice. The user also enters an "Initial amount of intervals" and a "Final amount of intervals". After the user clicks "CALCULATE", a scrollable table of the results of approximating the specified integral with the selected technique are displayed, with the first entry in the table using "Initial amount of intervals" for the approximation and the last entry in the table using "Final amount of intervals". Typically, one expects that the accuracy of the integral improves further down the table, since more intervals corresponds to a better approximation.
