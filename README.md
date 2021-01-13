@@ -1,6 +1,6 @@
 # Integrator
 
-This performs [Riemann sums](https://en.wikipedia.org/wiki/Riemann_sum) and other numerical integration techniques, and was written by Aaron Kofsky and I in our calculus class in 2016 during my junior year of high school.
+`Integrator.jar` performs [Riemann sums](https://en.wikipedia.org/wiki/Riemann_sum) and other numerical integration techniques. It was written by Aaron Kofsky and I as a final project for our 2016 calculus class, during my junior year of high school.
 
 ## The `Function' class
 
